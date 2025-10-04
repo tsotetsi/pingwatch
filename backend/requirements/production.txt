@@ -1,0 +1,4 @@
+# PRECAUTION: Avoid production dependencies
+# that aren not in the development file.
+
+-r base.txt

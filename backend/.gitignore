@@ -1,0 +1,83 @@
+# Environment Variables.
+.env
+.env.local
+.env.development
+.env.production
+*.env.*
+
+# Python.
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment.
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# IDE specific files.
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Database files.
+*.db
+*.sqlite3
+*.sqlite
+*.sql
+
+# Testing related files
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Operating System generated files.
+.DS_Store
+Thumbs.db
+
+# FastAPI specific.
+instance/
+.webassets-cache/
+
+# Docker related files.
+*.pem
+*.key
+*.crt
+volumes/
+tmp/
+
+# Documentation.
+docs/_build/
+
+# PyInstaller (Used for (Packaging).
+*.manifest
+*.spec
