@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pingwatch-backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-production}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-*}
+    volumes:
+      # Mount source for development (comment out for production)
+      - ./backend/src:/app/src:ro
+      # Logs
+      - ./logs:/app/logs
+    networks:
+      - pingwatch-network
+    healthcheck:
+      test: ["CMD", "python", "/app/scripts/healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: pingwatch-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USER:-pingwatch}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
+      - POSTGRES_DB=${DB_NAME:-pingwatch}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - pingwatch-network
+
+networks:
+  pingwatch-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

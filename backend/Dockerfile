@@ -46,8 +46,14 @@ RUN chown -R appuser:appgroup /app
 # Copy virtual environment from builder (corrected path)
 COPY --from=builder --chown=appuser:appgroup /opt/venv /opt/venv
 
-# Copy application code(src).
+# Copy application source code.
 COPY --chown=appuser:appgroup ./src ./src
+
+# Copy healthcheck script only
+COPY --chown=appuser:appgroup ./scripts/healthcheck.py ./scripts/healthcheck.py
+
+# Make health script executable inside scripts folder.
+RUN chmod +x ./scripts/healthcheck.py
 
 # Switch to non-root user early.
 USER appuser
