@@ -1,0 +1,11 @@
+### Core ###
+fastapi[standard]==0.118.0
+uvicorn[standard]==0.37.0
+
+### Database ###
+asyncpg==0.30.0 # Async PostgreSQL client.
+sqlalchemy==2.0.43 # ORM.
+
+### Security and Validation ###
+email-validator==2.3.0 # Required by FastAPI for EmailStr(and docs).
+pydantic==2.11.10

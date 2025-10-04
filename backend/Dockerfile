@@ -11,23 +11,24 @@ WORKDIR /app
 # Copy requirements first (for better caching).
 COPY ./requirements ./requirements/
 
-# Create virtual environment and upgrade pip with security flags.
-# Ensure packages are installed with hashes for security.
+# Create virtual environment and upgrade pip.
 RUN python -m venv /opt/venv && \
-    /opt/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools && \
-    /opt/venv/bin/pip install --no-cache-dir --require-hashes -r /app/requirements/base.txt
+    /opt/venv/bin/pip install --no-cache-dir --upgrade pip wheel setuptools
 
-# Install environment-specific requirements.
-RUN if [ "$ENVIRONMENT" = "local" ] && [ -f "/app/requirements/local.txt" ]; then \
+# Install base requirements with hash checking (security!).
+RUN /opt/venv/bin/pip install --no-cache-dir --require-hashes -r /app/requirements/base.txt
+
+# Install environment-specific requirements with hashes.
+RUN if [ "$ENVIRONMENT" = "local" ] ; then \
     /opt/venv/bin/pip install --no-cache-dir --require-hashes -r /app/requirements/local.txt; \
-    elif [ "$ENVIRONMENT" = "production" ] && [ -f "/app/requirements/production.txt" ]; then \
+    elif [ "$ENVIRONMENT" = "production" ] ; then \
     /opt/venv/bin/pip install --no-cache-dir --require-hashes -r /app/requirements/production.txt; \
     fi
 
 # ===== STAGE 2: Runtime Image(Final) ===== #
 FROM python:3.13-slim-bullseye
 
-# Install security updates and clean up in single layer
+# Install security updates and clean up in single layer.
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get clean && \
@@ -40,16 +41,16 @@ RUN groupadd --system --gid 1000 appgroup && \
 
 WORKDIR /app
 
-# Set correct ownership for the app directory
+# Set correct ownership for the app directory.
 RUN chown -R appuser:appgroup /app
 
-# Copy virtual environment from builder (corrected path)
+# Copy virtual environment from builder.
 COPY --from=builder --chown=appuser:appgroup /opt/venv /opt/venv
 
 # Copy application source code.
 COPY --chown=appuser:appgroup ./src ./src
 
-# Copy healthcheck script only
+# Copy healthcheck script (only)
 COPY --chown=appuser:appgroup ./scripts/healthcheck.py ./scripts/healthcheck.py
 
 # Make health script executable inside scripts folder.

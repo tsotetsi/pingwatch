@@ -1,7 +1,8 @@
-# ConnectPulse 📡
+# PingWatch 📡
 
 [![React Native](https://img.shields.io/badge/React%20Native-0.76-61dafb?style=for-the-badge&logo=react&logoColor=white)](https://reactnative.dev/)
 [![Expo](https://img.shields.io/badge/Expo-~54.0-000020?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Pydantic](https://img.shields.io/badge/-Pydantic-464646?style=for-the-badge&logo=Pydantic)](https://docs.pydantic.dev/latest/)
 [![Python](https://img.shields.io/badge/Python-3.12+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -69,6 +70,84 @@ uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 The API will be available at `http://localhost:8000`
 
 **API Documentation:** `http://localhost:8000/docs`
+
+## 🐳 Docker Deployment
+
+### Prerequisites
+- Docker 28.5+
+- Docker Compose 2.39+
+
+### Quick Start with Docker
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/tsotetsi/pingwatch.git
+cd pingwatch
+```
+
+2. Create environment file.
+```bash
+cp .env.example .env
+# Edit .env with your configuration.
+```
+
+3. Build and run.
+```bash
+docker compose up --build -d
+```
+
+4. Verify it's working.
+```bash
+# Check container status.
+docker compose ps
+
+# View logs.
+docker compose logs -f backend
+
+# Test the API.
+curl http://localhost:8000/api/v1/health
+```
+
+The API will be available at:
+
+- API: http://localhost:8000
+- Interactive docs: http://localhost:8000/docs
+- Health check: http://localhost:8000/health
+
+Commond Docker Commands.
+
+```bash
+# Stop services
+
+docker compose down
+
+# Rebuild after code changes
+docker compose up -d --build
+
+# View logs
+docker compose logs -f backend
+
+# Execute commands in container
+docker compose exec backend python --version
+
+# Run tests in container
+docker compose exec backend pytest
+```
+
+Production Deployment
+For production, update your .env file:
+
+```env
+ENVIRONMENT=production
+LOG_LEVEL=WARNING
+ALLOWED_ORIGINS=https://yourdomain.com
+```
+
+Then deploy:
+
+```bash
+docker compose up -d --build
+```
 
 ### Frontend Setup
 

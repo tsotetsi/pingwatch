@@ -1,0 +1,4 @@
+-c base.txt
+
+# Production specific dependencies.
+# Check uvicorn vs gunicorn for production use.
