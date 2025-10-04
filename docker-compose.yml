@@ -11,6 +11,9 @@ services:
       - ENVIRONMENT=${ENVIRONMENT:-production}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-*}
+      - HEALTHCHECK_HOST=${HEALTHCHECK_HOST:-localhost}
+      - HEALTHCHECK_PORT=${HEALTHCHECK_PORT:-8000}
+      - HEALTHCHECK_PATH=${HEALTHCHECK_PATH:-/api/v1/watcher/health}
     volumes:
       # Mount source for development (comment out for production)
       - ./backend/src:/app/src:ro
@@ -24,6 +27,13 @@ services:
       timeout: 10s
       retries: 3
       start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50' # Limit CPU usage to 50% of one core.
+          memory: 256M # Limit memory to 256 Megabytes.
+        reservations:
+          memory: 64M # Reserve 64MB to ensure it always has some memory.
 
   postgres:
     image: postgres:17-alpine
@@ -33,6 +43,23 @@ services:
       - POSTGRES_USER=${DB_USER:-pingwatch}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-changeme}
       - POSTGRES_DB=${DB_NAME:-pingwatch}
+    deploy:
+          resources:
+            limits:
+              cpus: '1.0' # DB can be CPU-intensive.
+              memory: 1024M # 1 Gigabyte limit.
+            reservations:
+              memory: 256M # Reserve 256MB to keep it running smoothly.
+    # Drop most capabilities and add back only what is necessary for the DB.
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL # Drop all Linux capabilities for maximum security.
+    cap_add:
+      - CHOWN # Needed for file ownership changes on initialization.
+      - DAC_OVERRIDE # Needed for file permission checks.
+      - SETGID # Needed to set group ID.
+      - SETUID # Needed to set user ID.
     ports:
       - "5432:5432"
     volumes:
