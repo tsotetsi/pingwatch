@@ -3,7 +3,8 @@
 [![React Native](https://img.shields.io/badge/React%20Native-0.76-61dafb?style=for-the-badge&logo=react&logoColor=white)](https://reactnative.dev/)
 [![Expo](https://img.shields.io/badge/Expo-~54.0-000020?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Python](https://img.shields.io/badge/Python-3.11+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Pydantic](https://img.shields.io/badge/-Pydantic-464646?style=for-the-badge&logo=Pydantic)](https://docs.pydantic.dev/latest/)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 > Real-time network connectivity monitoring with instant notifications. Never be caught off-guard by connection issues again.
