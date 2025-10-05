@@ -318,8 +318,46 @@ adb devicesList of devices attached
 you should get something like:
 ```bash
 List of devices attached
-1z1516r9        device  # This is a random string for reference only.
+1z1516r9        device  # (This is a random string for reference only.)
 ```
+
+**For the best Native Development Experience(Recommended)**
+
+Expo Go is the perfect tool for learning, prototyping, and experimenting, but most production apps will convert to using development builds sooner rather than later.
+
+Please see the (why) reason you should convert to development build: https://docs.expo.dev/develop/development-builds/introduction/
+
+**Run the native devlopment build(s)**
+
+The following command will create prebuild packages for the provided operating system. 
+
+```bash
+# For Andoid Operating System.
+
+npx expo run:android
+
+# For iPhome Operating System.
+
+npx expo run:ios
+
+# Note for ios, you need to have Xcode installed. 
+
+- MacBook is not strictly required for App development.
+- Mac is required for App Store distribution.
+- Register for an Apple Developer program, you need  an iPhone
+  or iPad with Touch ID, Face ID, or a passcode, or a Mac with T2
+  Security Chip or Apple Silicon, to verify your identity during
+  the enrollment process.
+
+```
+
+Here is a snipper regarding having a free Apple Developer Account:
+
+**AI Overview**
+Yes, you can create a free Apple Developer Account without a Mac, iPhone, or iPad by simply signing up with an existing Apple ID or creating a new one on their website, Apple Developer. This free account gives you access to Xcode, documentation, and the ability to test apps on your own devices, but it does not allow you to distribute apps on the App Store, which requires a paid membership. 
+
+
+
 
 ## 🚀 Usage
 

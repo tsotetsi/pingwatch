@@ -8,6 +8,8 @@ import {
   StatusBar,
   ScrollView,
   Switch,
+  Modal,
+  TextInput,
 } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as TaskManager from 'expo-task-manager';
@@ -60,18 +62,16 @@ TaskManager.defineTask(PING_TASK, async () => {
 export default function App() {
   const [isMonitoring, setIsMonitoring] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState('unknown');
-  const [lastPingTime, setLastPingTime] = useState<Date | null>(null);
-  const [pingHistory, setPingHistory] = useState<Array<{
-    time: Date;
-    status: 'success' | 'failed';
-    latency?: number;
-  }>>([]);
+  const [lastPingTime, setLastPingTime] = useState(null);
+  const [pingHistory, setPingHistory] = useState([]);
   const [pingInterval, setPingInterval] = useState(PING_INTERVAL);
   const [autoReconnect, setAutoReconnect] = useState(true);
+  const [showCustomModal, setShowCustomModal] = useState(false);
+  const [customInterval, setCustomInterval] = useState('60');
   
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     requestPermissions();
@@ -220,6 +220,16 @@ export default function App() {
     }).start();
   };
 
+  const handleCustomInterval = () => {
+    const value = parseInt(customInterval);
+    if (!isNaN(value) && value >= 5 && value <= 300) {
+      setPingInterval(value);
+      setShowCustomModal(false);
+    } else {
+      alert('Please enter a valid interval between 5 and 300 seconds');
+    }
+  };
+
   const getStatusColor = () => {
     switch (connectionStatus) {
       case 'online': return '#10b981';
@@ -283,7 +293,7 @@ export default function App() {
           <View style={styles.settingRow}>
             <Text style={styles.settingLabel}>Ping Interval</Text>
             <View style={styles.intervalButtons}>
-              {[5, 10, 30, 60].map(interval => (
+              {[5, 30].map(interval => (
                 <TouchableOpacity
                   key={interval}
                   style={[
@@ -301,6 +311,21 @@ export default function App() {
                   </Text>
                 </TouchableOpacity>
               ))}
+              <TouchableOpacity
+                style={[
+                  styles.intervalButton,
+                  ![5, 30].includes(pingInterval) && styles.intervalButtonActive
+                ]}
+                onPress={() => setShowCustomModal(true)}
+                disabled={isMonitoring}
+              >
+                <Text style={[
+                  styles.intervalButtonText,
+                  ![5, 30].includes(pingInterval) && styles.intervalButtonTextActive
+                ]}>
+                  {![5, 30].includes(pingInterval) ? `${pingInterval}s` : 'Own?'}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -335,6 +360,47 @@ export default function App() {
           </Animated.View>
         )}
       </ScrollView>
+
+      {/* Custom Interval Modal */}
+      <Modal
+        visible={showCustomModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowCustomModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Custom Interval</Text>
+            <Text style={styles.modalSubtitle}>Enter interval in seconds (5-300)</Text>
+            
+            <TextInput
+              style={styles.modalInput}
+              value={customInterval}
+              onChangeText={setCustomInterval}
+              keyboardType="numeric"
+              placeholder="60"
+              placeholderTextColor="#6b7280"
+              autoFocus
+            />
+            
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalButtonCancel]}
+                onPress={() => setShowCustomModal(false)}
+              >
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={[styles.modalButton, styles.modalButtonConfirm]}
+                onPress={handleCustomInterval}
+              >
+                <Text style={styles.modalButtonText}>Set</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -438,10 +504,12 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   intervalButton: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
     backgroundColor: '#334155',
+    minWidth: 55,
+    alignItems: 'center',
   },
   intervalButtonActive: {
     backgroundColor: '#10b981',
@@ -485,5 +553,61 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#10b981',
     fontWeight: '600',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#1e293b',
+    borderRadius: 20,
+    padding: 24,
+    width: '80%',
+    maxWidth: 340,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  modalSubtitle: {
+    fontSize: 14,
+    color: '#94a3b8',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  modalInput: {
+    backgroundColor: '#334155',
+    borderRadius: 12,
+    padding: 16,
+    fontSize: 18,
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  modalButton: {
+    flex: 1,
+    padding: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  modalButtonCancel: {
+    backgroundColor: '#334155',
+  },
+  modalButtonConfirm: {
+    backgroundColor: '#10b981',
+  },
+  modalButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
   },
 });

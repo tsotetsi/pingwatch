@@ -26,13 +26,16 @@
     "android": {
       "permissions": [
         "FOREGROUND_SERVICE",
+        "WAKE_LOCK",
+        "FOREGROUND_SERVICE",
         "WAKE_LOCK"
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous.PingWatch"
     },
     "web": {
       "favicon": "./assets/favicon.png"
