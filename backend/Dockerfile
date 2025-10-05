@@ -1,5 +1,5 @@
 # ===== STAGE 1: Builder ===== #
-FROM python:3.13-slim-bullseye@sha256:e98b521460ee75bca92175c16247bdf7275637a8faaeb2bcfa19d879ae5c4b9a AS builder
+FROM python:3.13-alpine AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -10,6 +10,9 @@ WORKDIR /app
 
 # Copy requirements first (for better caching).
 COPY ./requirements ./requirements/
+
+# Install build dependencies for python packages.
+RUN apk add --no-cache build-base postgresql-dev yaml-dev
 
 # Create virtual environment and upgrade pip.
 RUN python -m venv /opt/venv && \
@@ -26,18 +29,16 @@ RUN if [ "$ENVIRONMENT" = "local" ] ; then \
     fi
 
 # ===== STAGE 2: Runtime Image(Final) ===== #
-FROM python:3.13-slim-bullseye@sha256:e98b521460ee75bca92175c16247bdf7275637a8faaeb2bcfa19d879ae5c4b9a
+FROM python:3.13-alpine
 
 # Install security updates and clean up in single layer.
-RUN apt-get update && \
-    apt-get upgrade -y --no-install-recommends && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk update && \
+    apk upgrade --no-cache
 
 # Create non-root user and group with explicit UID/GID.
 # No home directory needed and prevent any shell access for this user.
-RUN groupadd --system --gid 1000 appgroup && \
-    useradd --system --uid 1000 --gid appgroup --no-create-home --shell /bin/false appuser
+RUN addgroup -S -g 1000 appgroup && \
+    adduser -S -u 1000 -G appgroup -H -D appuser
 
 WORKDIR /app
 
