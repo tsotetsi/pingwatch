@@ -85,18 +85,18 @@ git clone https://github.com/tsotetsi/pingwatch.git
 cd pingwatch
 ```
 
-2. Create environment file.
+2. **Create environment file.**
 ```bash
 cp .env.example .env
 # Edit .env with your configuration.
 ```
 
-3. Build and run.
+3. **Build and run.**
 ```bash
 docker compose up --build -d
 ```
 
-4. Verify it's working.
+4. **Verify it's working.**
 ```bash
 # Check container status.
 docker compose ps
@@ -108,13 +108,13 @@ docker compose logs -f backend
 curl http://localhost:8000/api/v1/health
 ```
 
-The API will be available at:
+**The API will be available at:**
 
-- API: http://localhost:8000
-- Interactive docs: http://localhost:8000/docs
-- Health check: http://localhost:8000/health
+- **API**: http://localhost:8000
+- **Interactive docs**: http://localhost:8000/docs
+- **Health check**: http://localhost:8000/health
 
-Commond Docker Commands.
+**Common Docker Commands.**
 
 ```bash
 # Stop services
@@ -143,10 +143,98 @@ LOG_LEVEL=WARNING
 ALLOWED_ORIGINS=https://yourdomain.com
 ```
 
-Then deploy:
+**Then deploy:**
 
 ```bash
 docker compose up -d --build
+```
+
+# Secure Dependency Management
+
+This project uses a security-first approach to Python dependency management with `pip-tools` and hash pinning to prevent supply chain attacks.
+
+## 🛡️ Security Features
+
+- **Hash verification**: All packages are verified against stored hashes during installation.
+- **Reproducible builds**: Exact same dependencies every time.
+- **Dependency separation**: Base, local, and production environments.
+- **Transitive dependency control**: All sub-dependencies are explicitly pinned.
+
+## 📁 Requirements Structure
+
+* requirements/
+\
+&nbsp;&nbsp;&nbsp;&nbsp;├── **base.in** # Source: Core dependencies with version ranges
+\
+&nbsp;&nbsp;&nbsp;&nbsp;├── **base.txt** # Generated: Locked versions with hashes
+\
+&nbsp;&nbsp;&nbsp;&nbsp;├── **local.in** # Source: Development tools
+\
+&nbsp;&nbsp;&nbsp;&nbsp;├── **local.txt** # Generated: Development environment
+&nbsp;&nbsp;&nbsp;&nbsp;\
+&nbsp;&nbsp;&nbsp;&nbsp;├── **production.in** # Source: Production-only packages
+\
+&nbsp;&nbsp;&nbsp;&nbsp;└── **production.txt** # Generated: Production environment
+
+
+* **README.md** # This documentation.
+
+
+## 🔄 Workflow
+
+### Adding a New Dependency
+
+1. **Add to the appropriate `.in` file**:
+```bash
+echo "new-package>=1.0.0,<2.0.0" >> requirements/base.in
+```
+
+2. **Generate locked versions with hashes**:
+```bash
+./scripts/update-requirements.sh
+```
+
+3. **Test and commit both files**:
+```bash
+git add requirements/base.in requirements/base.txt
+git commit -m "feat: add new-package dependency"
+```
+****
+
+**Regular Security Updates(Monthly)**
+```bash
+# Update all dependencies to latest compatible versions.
+./scripts/update-requirements.sh
+
+# Test thoroughly, then commit updates.
+git add requirements/*.txt
+git commit -m "chore: update dependencies for security"
+```
+
+**Updating Specific Packages**
+```bash
+# Update a specific package and its dependencies.
+pip-compile --upgrade-package fastapi --generate-hashes requirements/base.in -o requirements/base.txt
+
+# Update all packages in a file.
+pip-compile --upgrade --generate-hashes requirements/base.in -o requirements/base.txt
+```
+
+**Development Setup**
+```bash
+# Install development dependencies (with hash verification).
+pip install --require-hashes -r requirements/local.txt
+
+# Or for production-like environment.
+pip install --require-hashes -r requirements/base.txt
+```
+
+🏗️ **Build Process**
+The Docker build automatically enforces hash verification:
+
+```dockerfile
+# In Dockerfile - all installations require hashes
+RUN /opt/venv/bin/pip install --no-cache-dir --require-hashes -r /app/requirements/base.txt
 ```
 
 ### Frontend Setup

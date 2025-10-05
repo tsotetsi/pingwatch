@@ -1,5 +1,5 @@
 # ===== STAGE 1: Builder ===== #
-FROM python:3.13-slim-bullseye AS builder
+FROM python:3.13-slim-bullseye@sha256:e98b521460ee75bca92175c16247bdf7275637a8faaeb2bcfa19d879ae5c4b9a AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -26,7 +26,7 @@ RUN if [ "$ENVIRONMENT" = "local" ] ; then \
     fi
 
 # ===== STAGE 2: Runtime Image(Final) ===== #
-FROM python:3.13-slim-bullseye
+FROM python:3.13-slim-bullseye@sha256:e98b521460ee75bca92175c16247bdf7275637a8faaeb2bcfa19d879ae5c4b9a
 
 # Install security updates and clean up in single layer.
 RUN apt-get update && \

@@ -1,0 +1,46 @@
+# Python bytecode.
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments.
+venv/
+.env/
+.venv/
+
+# IDE and editor files.
+.vscode/
+.idea/
+*.swp
+
+# OS files.
+.DS_Store
+Thumbs.db
+
+# Git.
+.git
+.gitignore
+
+# Docker/K8s/.
+.dockerignore
+docker-compose*.yml
+k8s/
+
+# Build and test artifacts.
+*.log
+*.pot
+*.pyc
+test-commands.debug
+.pytest_cache/
+coverage.*
+htmlcov/
+.tox/
+dist/
+build/
+
+# Ignore files that are managed elsewhere.
+README.md
+LICENSE
+Makefile
