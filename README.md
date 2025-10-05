@@ -303,6 +303,24 @@ npx expo start
 
 Press `i` for iOS simulator or `a` for Android emulator.
 
+
+7. **Testing on the actual device(Androin)**
+
+- **Make sure you have turned on android debugging or USB mode.**
+- **If you are using USB debugging, make sure File transfer... or Transfer .. is selected. Not just charging**
+
+Then run the following command to check and connect your phone to your PC/Laptop:
+```bash
+adb devicesList of devices attached
+8a5517d1        device
+```
+
+you should get something like:
+```bash
+List of devices attached
+1z1516r9        device  # This is a random string for reference only.
+```
+
 ## 🚀 Usage
 
 1. **Start Monitoring**
