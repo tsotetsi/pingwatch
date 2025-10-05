@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, status
 
 from src.models import PingResponseModel
 from src.schemas import PingResponseSchema
@@ -45,7 +45,7 @@ async def health():
     connectivity monitoring.
     """
 
-    return PingResponseSchema(
-        status=status.HTTP_200_OK,
-        timestamp=datetime.now(timezone.utc).isoformat()
-    )
+    return {
+        "status": status.HTTP_200_OK,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }

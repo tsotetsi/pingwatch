@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timezone
 
 from src.api.v1.watcher import watcher_router
-from src.schemas import PingResponse
 
 
 tags_metadata = [ # For API documentation.
