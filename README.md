@@ -67,7 +67,9 @@ pip install -r requirements/local.txt
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available at `http://localhost:8000/api/v1/`
+
+The current endpoints available are (`/health` -> Are the following services available) and (`/ping` -> Is this actual service running?)
 
 **API Documentation:** `http://localhost:8000/docs`
 
