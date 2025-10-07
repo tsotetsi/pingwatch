@@ -6,6 +6,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Pydantic](https://img.shields.io/badge/-Pydantic-464646?logo=Pydantic)](https://docs.pydantic.dev/latest/)
 [![Python](https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17+-316192?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 > Real-time network connectivity monitoring with instant notifications. Never be caught off-guard by connection issues again.
@@ -67,7 +68,24 @@ pip install -r requirements/local.txt
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+The service has `/health` endpoint. This is for things related to infrastructure:
+```
+GET /health
+```
+- `Docker`
+- `k8s`
+- `load balancers` etc.
+
 The API will be available at `http://localhost:8000/api/v1/`
+
+The following application health (for monitoring, alerting) are available:
+
+```bash
+# Application health (for monitoring, alerting)
+GET /api/v1/watcher/health
+GET /api/v1/health/ready  # readiness probe
+GET /api/v1/health/live   # liveness probe
+```
 
 The current endpoints available are (`/health` -> Are the following services available) and (`/ping` -> Is this actual service running?)
 
@@ -112,9 +130,9 @@ curl http://localhost:8000/api/v1/health
 
 **The API will be available at:**
 
-- **API**: http://localhost:8000
+- **API**: http://localhost:8000/api/v1/health
 - **Interactive docs**: http://localhost:8000/docs
-- **Health check**: http://localhost:8000/health
+- **Service health check**: http://localhost:8000/health
 
 **Common Docker Commands.**
 
@@ -313,8 +331,7 @@ Press `i` for iOS simulator or `a` for Android emulator.
 
 Then run the following command to check and connect your phone to your PC/Laptop:
 ```bash
-adb devicesList of devices attached
-8a5517d1        device
+adb devices
 ```
 
 you should get something like:
