@@ -1,12 +1,12 @@
 # PingWatch 📡
 
-[![React Native](https://img.shields.io/badge/React%20Native-0.76-61dafb?style=for-the-badge&logo=react&logoColor=white)](https://reactnative.dev/)
-[![Expo](https://img.shields.io/badge/Expo-~54.0-000020?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Pydantic](https://img.shields.io/badge/-Pydantic-464646?style=for-the-badge&logo=Pydantic)](https://docs.pydantic.dev/latest/)
-[![Python](https://img.shields.io/badge/Python-3.12+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![React Native](https://img.shields.io/badge/React%20Native-0.76-61dafb?logo=react&logoColor=white)](https://reactnative.dev/)
+[![Expo](https://img.shields.io/badge/Expo-~54.0-000020?logo=expo&logoColor=white)](https://expo.dev/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Pydantic](https://img.shields.io/badge/-Pydantic-464646?logo=Pydantic)](https://docs.pydantic.dev/latest/)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 > Real-time network connectivity monitoring with instant notifications. Never be caught off-guard by connection issues again.
 
@@ -67,7 +67,9 @@ pip install -r requirements/local.txt
 uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available at `http://localhost:8000/api/v1/`
+
+The current endpoints available are (`/health` -> Are the following services available) and (`/ping` -> Is this actual service running?)
 
 **API Documentation:** `http://localhost:8000/docs`
 
@@ -516,17 +518,8 @@ eas build --platform all
 
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-Please ensure:
-- Code follows existing style conventions.
-- Tests pass (`npm test` and `pytest`).
-- Documentation is updated.
-- Commit messages are clear and descriptive.
+We love contributions! Please read our [Contributing Guide](CONTRIBUTING.md) for details on
+how to submit pull requests, report bugs, and suggest features.
 
 ## 📄 License
 
@@ -559,8 +552,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 💬 Support
 
-Having issues? Please check the [Issues](https://github.com/tsotetsi/pingwatch/issues) page or create a new issue.
-
+If you have any questions, please [open an issue](https://github.com/tsotetsi/pingwatch/issues) or reach out to the maintainer.
 ---
 
 <p align="center">Made with ❤️ by developers who got tired of surprise connection drops.</p>
