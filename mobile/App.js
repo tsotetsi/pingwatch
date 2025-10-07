@@ -18,7 +18,10 @@ import NetInfo from '@react-native-community/netinfo';
 
 const PING_TASK = 'CONNECTIVITY_PING_TASK';
 const PING_INTERVAL = 10; // seconds
-const API_URL = 'https://your-api-url.com/ping'; // Update with your FastAPI URL
+const HOST = 'http://localhost';
+const PORT = '8000';
+const PATH = '/health';
+const API_URL = `${HOST}:${PORT}${PATH}`; // Update with your FastAPI URL
 
 // Configure notification handler
 Notifications.setNotificationHandler({
