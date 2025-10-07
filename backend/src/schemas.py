@@ -2,10 +2,27 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
-class PingResponseSchema(BaseModel):
-    """Service Response schema data."""
+
+class ComponentSchema(BaseModel):
+    """Component schema data."""
+    name: str
+    status: str
+    details: str | None = None
+
+    model_config=ConfigDict(extra="forbid")
+
+class HealthCheckResponseSchema(BaseModel):
+    """Health Check Response schema data."""
     status: str
     timestamp: datetime
+    components: list[ComponentSchema]
+
+class PingResponseSchema(BaseModel):
+    """Service Response schema data."""
+    status: int
+    timestamp: datetime
+    server_time: float
+    message: str
 
     model_config=ConfigDict(extra="forbid")
 
