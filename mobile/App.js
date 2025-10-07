@@ -18,15 +18,15 @@ import NetInfo from '@react-native-community/netinfo';
 
 const PING_TASK = 'CONNECTIVITY_PING_TASK';
 const PING_INTERVAL = 10; // seconds
-const HOST = 'http://localhost';
+const HOST = 'http://10.218.99.110'; // Use your machine hostname or IP address.
 const PORT = '8000';
 const PATH = '/health';
-const API_URL = `${HOST}:${PORT}${PATH}`; // Update with your FastAPI URL
+const API_URL = `${HOST}:${PORT}${PATH}`;
 
 // Configure notification handler
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
   }),
@@ -34,6 +34,7 @@ Notifications.setNotificationHandler({
 
 // Define the background task
 TaskManager.defineTask(PING_TASK, async () => {
+  console.log('Background fetch task running...');
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
@@ -49,6 +50,7 @@ TaskManager.defineTask(PING_TASK, async () => {
 
     return BackgroundFetch.BackgroundFetchResult.NewData;
   } catch (error) {
+    console.log('Background fetch failed:', error);
     // Connection failed
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -118,6 +120,7 @@ export default function App() {
   };
 
   const performPing = async () => {
+    console.log('Performing ping to', API_URL);
     const startTime = Date.now();
     
     try {
@@ -179,6 +182,7 @@ export default function App() {
   };
 
   const startMonitoring = async () => {
+    console.log('Starting monitoring...');
     setIsMonitoring(true);
     
     // Show foreground notification
