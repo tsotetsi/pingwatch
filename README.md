@@ -481,7 +481,7 @@ LOG_LEVEL=INFO
 
 Edit constants in `App.js`:
 
-```typescript
+```js
 const PING_INTERVAL = 10; // seconds
 const API_URL = 'https://your-api.com/ping';
 const PING_TIMEOUT = 5000; // milliseconds
@@ -493,6 +493,29 @@ const PING_TIMEOUT = 5000; // milliseconds
 ```bash
 eas build --platform android
 ```
+
+### Screenshorts
+<div class="grid" align="center" markdown>
+    <img
+        src="https://8upload.com/image/68e5315ca5128/screen-1.jpeg"
+        width=15%
+        title="Main-Screen"
+        alt="Main-Screen"
+    />
+    <img
+        src="https://8upload.com/image/68e5315cc44a7/screen-2.jpeg"
+        width=15%
+        title="Main-Screen - Running"
+        alt="Main-Screen - Running"
+    />
+    <img
+        src="https://8upload.com/image/68e5315ce34f7/screen-3.jpeg" 
+        width=15%
+        title="Main-Screen - Custom"
+        alt="Main-Screen - Custom"
+    />
+</div>
+
 
 ### iOS (IPA)
 ```bash
