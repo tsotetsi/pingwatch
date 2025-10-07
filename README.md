@@ -518,17 +518,8 @@ eas build --platform all
 
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-Please ensure:
-- Code follows existing style conventions.
-- Tests pass (`npm test` and `pytest`).
-- Documentation is updated.
-- Commit messages are clear and descriptive.
+We love contributions! Please read our [Contributing Guide](CONTRIBUTING.md) for details on
+how to submit pull requests, report bugs, and suggest features.
 
 ## 📄 License
 
@@ -561,8 +552,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 💬 Support
 
-Having issues? Please check the [Issues](https://github.com/tsotetsi/pingwatch/issues) page or create a new issue.
-
+If you have any questions, please [open an issue](https://github.com/tsotetsi/pingwatch/issues) or reach out to the maintainer.
 ---
 
 <p align="center">Made with ❤️ by developers who got tired of surprise connection drops.</p>
