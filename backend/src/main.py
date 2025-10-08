@@ -1,8 +1,9 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timezone
 
-from src.api.v1.watcher import watcher_router
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from src.api.v1.routers import api_router
 
 
 tags_metadata = [ # For API documentation.
@@ -38,6 +39,20 @@ app.add_middleware(
 )
 
 app.include_router(
-    watcher_router,
+    api_router,
     prefix="/api/v1"
 )
+
+@app.get("/", tags=["Connectivity Monitor"])
+async def root():
+    return {
+        "message": "PingWatch Connectivity API",
+    }
+
+@app.get("/health", tags=["Connectivity Monitor"])
+async def health():
+    return {
+        "message": "PingWatch Connectivity API",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "status": "healthy"
+    }
