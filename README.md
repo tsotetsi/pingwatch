@@ -133,6 +133,8 @@ curl http://localhost:8000/api/v1/health
 - **API**: http://localhost:8000/api/v1/health
 - **Interactive docs**: http://localhost:8000/docs
 - **Service health check**: http://localhost:8000/health
+- **Readyness probe**: http://localhost:8000/health/ready
+- **Liveness probe***: http://localhost:8000/health/liveness
 
 **Common Docker Commands.**
 
@@ -497,19 +499,19 @@ eas build --platform android
 ### Screenshorts
 <div class="grid" align="center" markdown>
     <img
-        src="https://8upload.com/image/68e5315ca5128/screen-1.jpeg"
+        src="mobile/screenshots/screen-1.jpeg"
         width=15%
         title="Main-Screen"
         alt="Main-Screen"
     />
     <img
-        src="https://8upload.com/image/68e5315cc44a7/screen-2.jpeg"
+        src="mobile/screenshots/screen-2.jpeg"
         width=15%
         title="Main-Screen - Running"
         alt="Main-Screen - Running"
     />
     <img
-        src="https://8upload.com/image/68e5315ce34f7/screen-3.jpeg" 
+        src="mobile/screenshots/screen-3.jpeg" 
         width=15%
         title="Main-Screen - Custom"
         alt="Main-Screen - Custom"
