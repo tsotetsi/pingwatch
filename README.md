@@ -1,13 +1,17 @@
 # PingWatch 📡
 
-[![React Native](https://img.shields.io/badge/React%20Native-0.76-61dafb?logo=react&logoColor=white)](https://reactnative.dev/)
-[![Expo](https://img.shields.io/badge/Expo-~54.0-000020?logo=expo&logoColor=white)](https://expo.dev/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Pydantic](https://img.shields.io/badge/-Pydantic-464646?logo=Pydantic)](https://docs.pydantic.dev/latest/)
-[![Python](https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17+-316192?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+<div align="center">
+
+  [![React Native](https://img.shields.io/badge/React%20Native-0.76-61dafb?logo=react&logoColor=white)](https://reactnative.dev/)
+  [![Expo](https://img.shields.io/badge/Expo-~54.0-000020?logo=expo&logoColor=white)](https://expo.dev/)
+  [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+  [![Pydantic](https://img.shields.io/badge/-Pydantic-464646?logo=Pydantic)](https://docs.pydantic.dev/latest/)
+  [![Python](https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
+  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17+-316192?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
+  [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+</div>
 
 > Real-time network connectivity monitoring with instant notifications. Never be caught off-guard by connection issues again.
 
