@@ -1,5 +1,5 @@
 # ===== STAGE 1: Builder ===== #
-FROM python:3.13-alpine AS builder
+FROM python:3.13-alpine@sha256:3a77fbbb5bc88c0f63cc2692a13b011547f25ee93536e991544c452801856226 AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -12,7 +12,13 @@ WORKDIR /app
 COPY ./requirements ./requirements/
 
 # Install build dependencies for python packages.
-RUN apk add --no-cache build-base postgresql-dev yaml-dev
+RUN set -eux && \
+    apk update && \
+    apk add --no-cache \
+        build-base \
+        postgresql-dev && \
+    apk upgrade --no-cache -U && \
+    rm -rf /var/cache/apk/*
 
 # Create virtual environment and upgrade pip.
 RUN python -m venv /opt/venv && \
@@ -29,13 +35,15 @@ RUN if [ "$ENVIRONMENT" = "local" ] ; then \
     fi
 
 # ===== STAGE 2: Runtime Image(Final) ===== #
-FROM python:3.13-alpine
+FROM python:3.13-alpine@sha256:3a77fbbb5bc88c0f63cc2692a13b011547f25ee93536e991544c452801856226
 
 # Install security updates and clean up in single layer.
 RUN apk update && \
-    apk upgrade --no-cache
+    apk add --no-cache libpq && \
+    apk upgrade --no-cache -U && \
+    rm -rf /var/cache/apk/*
 
-# Create non-root user and group with explicit UID/GID.
+# Create non-root user(-S for system) and group with explicit UID/GID.
 # No home directory needed and prevent any shell access for this user.
 RUN addgroup -S -g 1000 appgroup && \
     adduser -S -u 1000 -G appgroup -H -D appuser
@@ -48,6 +56,9 @@ RUN chown -R appuser:appgroup /app
 # Copy virtual environment from builder.
 COPY --from=builder --chown=appuser:appgroup /opt/venv /opt/venv
 
+# Switch to non-root user early.
+USER appuser
+
 # Copy application source code.
 COPY --chown=appuser:appgroup ./src ./src
 
@@ -56,9 +67,6 @@ COPY --chown=appuser:appgroup ./scripts/healthcheck.py ./scripts/healthcheck.py
 
 # Make health script executable inside scripts folder.
 RUN chmod +x ./scripts/healthcheck.py
-
-# Switch to non-root user early.
-USER appuser
 
 # Use virtual environment Python interpreter.
 ENV PATH="/opt/venv/bin:$PATH"
