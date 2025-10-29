@@ -402,9 +402,6 @@ Here is a snipper regarding having a free Apple Developer Account:
 **AI Overview**
 Yes, you can create a free Apple Developer Account without a Mac, iPhone, or iPad by simply signing up with an existing Apple ID or creating a new one on their website, Apple Developer. This free account gives you access to Xcode, documentation, and the ability to test apps on your own devices, but it does not allow you to distribute apps on the App Store, which requires a paid membership. 
 
-
-
-
 ## 🚀 Usage
 
 1. **Start Monitoring**
