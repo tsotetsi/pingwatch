@@ -281,7 +281,26 @@ yarn install
 
 3. **Install Expo modules**
 ```bash
+# The command will also upgrade modules that are curently installed:
+
 npx expo install expo-notifications expo-task-manager expo-background-fetch @react-native-community/netinfo
+
+# Update all compatible modules:
+
+npx expo install --fix
+
+# Update a specific module:
+
+npx expo install <module-name>
+# Example: npx expo install expo-notifications
+
+# Check for updates without installing:
+
+npx expo install --check
+
+# TODO Upgrading between major SDK versions
+  - @expo@ --fix
+  - npx expo doctor # analyze you project and find potential warning or missing dependecies
 ```
 
 4. **Update API URL**
