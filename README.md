@@ -9,6 +9,8 @@
   [![Pydantic](https://img.shields.io/badge/-Pydantic-464646?logo=Pydantic)](https://docs.pydantic.dev/latest/)
   [![Python](https://img.shields.io/badge/Python-3.12+-3776ab?logo=python&logoColor=white)](https://www.python.org/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17+-316192?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
+  [![Android](https://img.shields.io/badge/Android-14+-3DDC84?logo=android&logoColor=white)](https://developer.android.com/about/versions/14/setup-sdk)
+  [![iOS](https://img.shields.io/badge/iOS-15+-000000?logo=apple&logoColor=white)](https://support.apple.com/en-za/docs/iphone/pp209)
   [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 </div>
